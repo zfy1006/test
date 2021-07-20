@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0 ,user-scalable=no"> 
+  
+  <script src="./jquery-2.1.1.min.js"></script>
+  <style>
+   *{
+    margin: 0;
+    padding: 0;
+   }
+   .navScroll{
+    position: relative;
+   }
+   .overflow{   
+    width: 100%;
+    height: 36px;
+    overflow-x: scroll;
+    background-color: #151515;
+   } 
+   .overflow::-webkit-scrollbar {
+    display: none;
+    -webkit-overflow-scrolling: touch;
+   }
+   .overflow .container{
+    height: 36px;
+   }
+   .overflow .container .tabItem{
+    float: left;
+    margin-right: 32px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 12px;
+   }
+   .overflow .container .tabItem:first-child {
+    margin-left: 16px;
+   }
+   .overflow .container .tabItem:last-child {
+    margin-right: 16px;
+   }
+   .overflow .container .choose{
+    font-weight: bold;
+   }
+  </style>
+ </head>
+ <body>
+  <div class="navScroll">
+   <div id="overflow" class="overflow"> 
+    <div class="container"> 
+     <div class="tabItem choose">Science</div> 
+     <div class="tabItem">Advanced_technology</div> 
+     <div class="tabItem">Culture</div> 
+     <div class="tabItem">Healthnews</div> 
+     <div class="tabItem">Inspiration</div> 
+     <div class="tabItem">Celebrity</div> 
+     <div class="tabItem">General</div> 
+     <div class="tabItem">item8 </div> 
+     <div class="tabItem">item9 </div> 
+     <div class="tabItem">item10 </div> 
+     <div class="tabItem">item11 </div> 
+     <div class="tabItem">item12 </div> 
+    </div> 
+   </div> 
+
+  </div>
+ </body>
+ <script>
+  let width = 0;
+  $('#overflow .container div').each(function () { 
+   width += $(this).outerWidth(true);
+  }); 
+  $('#overflow .container').css('width', width + "px"); 
+  // 以上将.container 的宽度变成内容总宽度
+
+  $(".navScroll").on("click",".tabItem",function(e){ //滑动栏点击样式   
+   var $this=$(this);
+   $(".tabItem").css({"fontWeight": "normal"})
+   $($this).css({"fontWeight": "bold"});
+   var items = $($this)[0];
+   var target;
+   $(".tabItem").each(function(i,n){
+    if(n==items){
+        target = i;
+    }
+   }) 
+   moveNav(target);
+  }) 
+
+  function moveNav(index){ //滑动栏移动效果
+    let beforeTargetW = 0;
+    $('#overflow .container div').each(function (i) {
+        beforeTargetW += $(this).outerWidth(true);
+        if(i == index) {
+            beforeTargetW = beforeTargetW -  $(this).width() / 2 - 32;
+            return false;
+        };
+    }); 
+    var windowWidth = $(window).width();
+    var navBox = $("#overflow");
+    if(beforeTargetW > windowWidth / 2) {
+        navBox.animate({scrollLeft: beforeTargetW - windowWidth/2 },500);
+    }else {
+        navBox.animate({scrollLeft:'0px'},500);
+    }
+  }
+ </script>
+</html>
