@@ -1,17 +1,19 @@
 <template>
   <div>
     <nav-bar />
-    1111
-    2222
-    3333
-    44444
-    5555
     <div class="flex justify-center">
       <div class="text-center margin-tb-lg margin-right">
         <el-select v-model="listQuery.type" placeholder="Project Type" class="margin-right" style="width: 106px">
           <el-option v-for="t in projectType" :key="t.value" :label="t.name" :value="t.value" />
         </el-select>
-        <el-input v-model.trim="listQuery.uid" style="width: 300px" size="large" type="text" placeholder="Search DPID" @keypress.native.enter="toRecommend">
+        <el-input
+          v-model.trim="listQuery.uid"
+          style="width: 300px"
+          size="large"
+          type="text"
+          placeholder="Search DPID"
+          @keypress.native.enter="toRecommend"
+        >
           <span slot="prepend">DPID</span>
         </el-input>
         <div class="pointer radius-lg padding border-solid line-brown text-lg margin-top-sm" @click="toRecommend">
